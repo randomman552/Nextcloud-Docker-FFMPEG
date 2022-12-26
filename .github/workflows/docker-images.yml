@@ -75,7 +75,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
-  FPM Alpine:
+  FPM-Alpine:
     runs-on: ubuntu-latest
 
     steps:
