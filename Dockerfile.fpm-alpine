@@ -1,0 +1,4 @@
+FROM nextcloud:stable-fpm-alpine
+
+RUN apk update && \
+    apk add ffmpeg
