@@ -4,7 +4,7 @@ The Docker images created by nextcloud do not include FFmpeg which is required f
 The image hosted with this repository extends the nextcloud images with an ffmpeg installation.
 
 ## Using this image
-To use this image, simply replace the `nextcloud` image tag with `ghcr.io/randomman552/nextcloud`.
+To use this image, simply replace the `nextcloud` image with `ghcr.io/randomman552/nextcloud` and use the same tag (currently on stable tags are supported).
 
 For example, view the below `compose.yml` adapted from from [the nextcloud Docker Hub](https://hub.docker.com/_/nextcloud/):
 
