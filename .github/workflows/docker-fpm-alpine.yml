@@ -31,6 +31,7 @@ jobs:
           latest=false
         tags: |
           type=raw,value=stable-fpm-alpine
+          type=raw,value=fpm-alpine
         
     - name: Build and push
       uses: docker/build-push-action@v3

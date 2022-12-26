@@ -45,4 +45,6 @@ services:
 ```
 
 ## Avaiable Tags
-- latest, stable, stable-apache
+- latest, stable, apache, stable-apache
+- fpm, stable-fpm
+- fpm-alpine, stable-fpm-alpine

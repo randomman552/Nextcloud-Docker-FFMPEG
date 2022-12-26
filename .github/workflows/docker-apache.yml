@@ -30,8 +30,9 @@ jobs:
         flavor: |
           latest=true
         tags: |
-          type=raw,value=stable-apache
           type=raw,value=stable
+          type=raw,value=apache
+          type=raw,value=stable-apache
         
     - name: Build and push
       uses: docker/build-push-action@v3
