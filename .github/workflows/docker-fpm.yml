@@ -31,7 +31,7 @@ jobs:
           latest=false
         tags: |
           type=raw,value=stable-fpm
-          type=raw.value=fpm
+          type=raw,value=fpm
         
     - name: Build and push
       uses: docker/build-push-action@v3
