@@ -14,6 +14,10 @@ stages:
 build-apache:
   stage: build-apache
 
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:stable-apache" .
     - docker tag "$CI_REGISTRY_IMAGE:stable-apache" "$CI_REGISTRY_IMAGE:apache" 
@@ -31,6 +35,9 @@ build-apache:
 build-fpm:
   stage: build-fpm
 
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
   script:
     - docker build --pull -f Dockerfile.fpm -t "$CI_REGISTRY_IMAGE:stable-fpm" .
     - docker tag "$CI_REGISTRY_IMAGE:stable-fpm" "$CI_REGISTRY_IMAGE:fpm" 
@@ -45,6 +52,9 @@ build-fpm:
 #FPM Alpine
 build-fpm-alpine:
   stage: build-fpm-alpine
+
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
   script:
     - docker build --pull -f Dockerfile.fpm-alpine -t "$CI_REGISTRY_IMAGE:stable-fpm-alpine" .
