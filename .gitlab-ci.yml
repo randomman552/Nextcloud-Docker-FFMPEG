@@ -7,17 +7,19 @@ variables:
 
 stages:
   - build-apache
-  - push-apache
   - build-fpm
-  - push-fpm
   - build-fpm-alpine
-  - push-fpm-alpine
 
 # Apache
 build-apache:
   stage: build-apache
+
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:stable-apache" -t "$CI_REGISTRY_IMAGE:apache" -t "$CI_REGISTRY_IMAGE:stable" -t "$CI_REGISTRY_IMAGE:latest" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:stable-apache" .
+    - docker tag "$CI_REGISTRY_IMAGE:stable-apache" "$CI_REGISTRY_IMAGE:apache" 
+    - docker tag "$CI_REGISTRY_IMAGE:stable-apache" "$CI_REGISTRY_IMAGE:stable"
+    - docker tag "$CI_REGISTRY_IMAGE:stable-apache" "$CI_REGISTRY_IMAGE:latest"
+    - docker push -a $CI_REGISTRY_IMAGE
 
   # Run this job in a branch where a Dockerfile exists
   rules:
@@ -25,62 +27,33 @@ build-apache:
       exists:
         - Dockerfile
 
-push-apache:
-  stage: push-apache
-
-  needs: 
-    - build-apache
-  
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  
-  script:
-    - docker push -a $CI_REGISTRY_IMAGE
-    
 #FPM
 build-fpm:
   stage: build-fpm
+
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:fpm" -t "$CI_REGISTRY_IMAGE:stable-fpm" .
+    - docker build --pull -f Dockerfile.fpm -t "$CI_REGISTRY_IMAGE:stable-fpm" .
+    - docker tag "$CI_REGISTRY_IMAGE:stable-fpm" "$CI_REGISTRY_IMAGE:fpm" 
+    - docker push -a $CI_REGISTRY_IMAGE
 
   # Run this job in a branch where a Dockerfile exists
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       exists:
-        - Dockerfile
-
-push-fpm:
-  stage: push-fpm
-
-  needs: 
-    - build-fpm
-  
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  
-  script:
-    - docker push -a $CI_REGISTRY_IMAGE
+        - Dockerfile.fpm
 
 #FPM Alpine
 build-fpm-alpine:
   stage: build-fpm-alpine
+
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:fpm-alpine" -t "$CI_REGISTRY_IMAGE:stable-fpm-alpine" .
+    - docker build --pull -f Dockerfile.fpm-alpine -t "$CI_REGISTRY_IMAGE:stable-fpm-alpine" .
+    - docker tag "$CI_REGISTRY_IMAGE:stable-fpm-alpine" "$CI_REGISTRY_IMAGE:fpm-alpine" 
+    - docker push -a $CI_REGISTRY_IMAGE
 
   # Run this job in a branch where a Dockerfile exists
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       exists:
-        - Dockerfile
-
-push-fpm-alpine:
-  stage: push-fpm-alpine
-
-  needs: 
-    - build-fpm-alpine
-  
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  
-  script:
-    - docker push -a $CI_REGISTRY_IMAGE
+        - Dockerfile.fpm-alpine
+    
