@@ -1,39 +1,86 @@
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Docker.gitlab-ci.yml
+# Use the official docker image.
+image: docker:latest
+services:
+  - docker:dind
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
 
-# Build a Docker image with CI/CD and push to the GitLab registry.
-# Docker-in-Docker documentation: https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
-#
-# This template uses one generic job with conditional builds
-# for the default branch and all other (MR) branches.
+stages:
+  - build-apache
+  - push-apache
+  - build-fpm
+  - push-fpm
+  - build-fpm-alpine
+  - push-fpm-alpine
 
-docker-build:
-  # Use the official docker image.
-  image: docker:latest
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  # Default branch leaves tag empty (= latest tag)
-  # All other branches are tagged with the escaped branch name (commit ref slug)
+# Apache
+build-apache:
+  stage: build-apache
   script:
-    - |
-      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
-        tag=""
-        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
-      else
-        tag=":$CI_COMMIT_REF_SLUG"
-        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
-      fi
-    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}" .
-    - docker push "$CI_REGISTRY_IMAGE${tag}"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:stable-apache" -t "$CI_REGISTRY_IMAGE:apache" -t "$CI_REGISTRY_IMAGE:stable" -t "$CI_REGISTRY_IMAGE:latest" .
+
   # Run this job in a branch where a Dockerfile exists
   rules:
-    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "master"
       exists:
         - Dockerfile
+
+push-apache:
+  stage: push-apache
+
+  needs: 
+    - build-apache
+  
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  
+  script:
+    - docker push
+    
+#FPM
+build-fpm:
+  stage: build-fpm
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:fpm" -t "$CI_REGISTRY_IMAGE:stable-fpm" .
+
+  # Run this job in a branch where a Dockerfile exists
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      exists:
+        - Dockerfile
+
+push-fpm:
+  stage: push-fpm
+
+  needs: 
+    - build-fpm
+  
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  
+  script:
+    - docker push
+
+#FPM Alpine
+build-fpm-alpine:
+  stage: build-fpm-alpine
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:fpm-alpine" -t "$CI_REGISTRY_IMAGE:stable-fpm-alpine" .
+
+  # Run this job in a branch where a Dockerfile exists
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      exists:
+        - Dockerfile
+
+push-fpm-alpine:
+  stage: push-fpm-alpine
+
+  needs: 
+    - build-fpm-alpine
+  
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  
+  script:
+    - docker push
