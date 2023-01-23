@@ -35,7 +35,7 @@ push-apache:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   
   script:
-    - docker push -a
+    - docker push -a $CI_REGISTRY_IMAGE
     
 #FPM
 build-fpm:
@@ -59,7 +59,7 @@ push-fpm:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   
   script:
-    - docker push -a
+    - docker push -a $CI_REGISTRY_IMAGE
 
 #FPM Alpine
 build-fpm-alpine:
@@ -83,4 +83,4 @@ push-fpm-alpine:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   
   script:
-    - docker push -a
+    - docker push -a $CI_REGISTRY_IMAGE
