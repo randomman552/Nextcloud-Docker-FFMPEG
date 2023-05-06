@@ -4,7 +4,7 @@ name: Apache Image
 
 trigger:
     branch:
-        - main
+        - master
     event:
         - push
         - cron
@@ -30,7 +30,7 @@ name: FPM Image
 
 trigger:
     branch:
-        - main
+        - master
     event:
         - push
         - cron
@@ -56,7 +56,7 @@ name: FPM Alpine Image
 
 trigger:
     branch:
-        - main
+        - master
     event:
         - push
         - cron
