@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: Build and Push Apache Image
+name: Apache Image
 
 trigger:
     event:
@@ -23,7 +23,7 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: Build and Push FPM Image
+name: FPM Image
 
 trigger:
     event:
@@ -38,6 +38,7 @@ steps:
           password:
               from_secret: docker-key
           repo: randomman552/nextcloud-ffmpeg
+          dockerfile: Dockerfile.fpm
           tags:
               - fpm
               - stable-fpm
@@ -45,7 +46,7 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: Build and Push FPM Alpine Image
+name: FPM Alpine Image
 
 trigger:
     event:
@@ -60,6 +61,7 @@ steps:
           password:
               from_secret: docker-key
           repo: randomman552/nextcloud-ffmpeg
+          dockerfile: Dockerfile.fpm-alpine
           tags:
               - fpm-alpine
               - stable-fpm-alpine
