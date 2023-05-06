@@ -6,8 +6,8 @@ trigger:
     branch:
         - master
     event:
-        - push
-        - cron
+        exclude:
+            pull_request
 
 steps:
     - name: Build and Push Image
@@ -32,8 +32,8 @@ trigger:
     branch:
         - master
     event:
-        - push
-        - cron
+        exclude:
+            pull_request
 
 steps:
     - name: Build and Push Image
@@ -58,8 +58,8 @@ trigger:
     branch:
         - master
     event:
-        - push
-        - cron
+        exclude:
+            pull_request
 
 steps:
     - name: Build and Push Image
