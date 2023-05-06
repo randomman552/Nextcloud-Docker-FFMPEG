@@ -1,9 +1,15 @@
 kind: pipeline
-name: default
+type: docker
+name: Push Images
+
+trigger:
+    event:
+        - push
 
 steps:
-    - name: docker
+    - name: Push Stable Apache
       image: plugins/docker
+      depends_on:
       settings:
           username:
               from_secret: docker-user
@@ -15,3 +21,31 @@ steps:
               - apache
               - stable
               - stable-apache
+
+    - name: Push FPM
+      image: plugins/docker
+      depends_on:
+      settings:
+          username:
+              from_secret: docker-user
+          password:
+              from_secret: docker-key
+          repo: randomman552/nextcloud-ffmpeg
+          dockerfile: Dockerfile.fpm
+          tags:
+              - fpm
+              - stable-fpm
+
+    - name: Push FPM Alpine
+      image: plugins/docker
+      depends_on:
+      settings:
+          username:
+              from_secret: docker-user
+          password:
+              from_secret: docker-key
+          repo: randomman552/nextcloud-ffmpeg
+          dockerfile: Dockerfile.fpm-alpine
+          tags:
+              - fpm-alpine
+              - stable-fpm-alpine
