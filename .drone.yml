@@ -3,8 +3,11 @@ type: docker
 name: Apache Image
 
 trigger:
+    branch:
+        - main
     event:
         - push
+        - cron
 
 steps:
     - name: Build and Push Image
@@ -26,8 +29,11 @@ type: docker
 name: FPM Image
 
 trigger:
+    branch:
+        - main
     event:
         - push
+        - cron
 
 steps:
     - name: Build and Push Image
@@ -49,8 +55,11 @@ type: docker
 name: FPM Alpine Image
 
 trigger:
+    branch:
+        - main
     event:
         - push
+        - cron
 
 steps:
     - name: Build and Push Image
