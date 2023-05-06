@@ -9,7 +9,7 @@ trigger:
 steps:
     - name: Push Stable Apache
       image: plugins/docker
-      depends_on:
+      depends_on: []
       settings:
           username:
               from_secret: docker-user
@@ -24,7 +24,7 @@ steps:
 
     - name: Push FPM
       image: plugins/docker
-      depends_on:
+      depends_on: []
       settings:
           username:
               from_secret: docker-user
@@ -38,7 +38,7 @@ steps:
 
     - name: Push FPM Alpine
       image: plugins/docker
-      depends_on:
+      depends_on: []
       settings:
           username:
               from_secret: docker-user
