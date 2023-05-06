@@ -1,0 +1,17 @@
+kind: pipeline
+name: default
+
+steps:
+    - name: docker
+    image: plugins/docker
+    settings:
+        username:
+            from_secret: docker-user
+        password:
+            from_secret: docker-key
+        repo: randomman552/nextcloud-ffmpeg
+        tags:
+            - latest
+            - apache
+            - stable
+            - stable-apache
