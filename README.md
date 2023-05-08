@@ -1,5 +1,5 @@
 # Nextcloud With FFmpeg
-[![Build Status](https://drone.ggrainger.uk/api/badges/ggrainger/Nextcloud-Docker-FFmpeg/status.svg)](https://drone.ggrainger.uk/ggrainger/Nextcloud-Docker-FFmpeg)
+[![Build Status](https://drone.ggrainger.uk/api/badges/ggrainger/Nextcloud-FFmpeg/status.svg)](https://drone.ggrainger.uk/ggrainger/Nextcloud-FFmpeg)
 
 The Docker images created by nextcloud do not include FFmpeg which is required for video previews and some nextcloud apps.
 
