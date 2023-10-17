@@ -53,7 +53,7 @@ steps:
     image: plugins/webhook
     depends_on:
       - apache-image
-      - fom-image
+      - fpm-image
       - fpm-alpine-image
     settings:
       urls:
