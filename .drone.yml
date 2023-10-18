@@ -59,7 +59,7 @@ steps:
       template: |
         {
           "title": "Pipline ${DRONE_BUILD_STATUS} for ${DRONE_REPO}",
-          "message": "Build: ${DRONE_BUILD_NUMBER} triggered by ${DRONE_BUILD_EVENT}\n\nCommit: [${DRONE_COMMIT_MESSAGE} by ${DRONE_COMMIT_AUTHOR}](${DRONE_COMMIT_LINK})\n\n[View build](${DRONE_BUILD_LINK})",
+          "message": "Build ${DRONE_BUILD_NUMBER} triggered by ${DRONE_BUILD_EVENT} on ${DRONE_REPO_BRANCH}\n\nCommit: [${DRONE_COMMIT_MESSAGE} by ${DRONE_COMMIT_AUTHOR}](${DRONE_COMMIT_LINK})\n\n[View build](${DRONE_BUILD_LINK})",
           "priority": 5,
           "extras": {
             "client::display": {
