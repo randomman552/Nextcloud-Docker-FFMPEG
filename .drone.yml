@@ -4,7 +4,11 @@ name: Publish Docker Images
 
 trigger:
   event:
-    exclude: pull_request
+    exclude:
+      - pull_request
+  action:
+    exclude:
+      - opened
 
 steps:
   # - name: apache-image
