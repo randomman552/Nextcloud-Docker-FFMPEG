@@ -61,7 +61,7 @@ steps:
       template: |
         {
           "title": "Build for {{ repo.owner }}/{{ repo.name }} complete",
-          "message": "Trigger: {{ build.event }} {{ build.action }}\n\nLast commit: {{ build.message }}}\n\n[View build]({{ build.link }})",
+          "message": "Trigger: {{ build.event }} {{ build.action }}\n\nLast commit: {{ build.message }}\n\n[View build]({{ build.link }})",
           "priority": 5,
           "extras": {
             "client::display": {
