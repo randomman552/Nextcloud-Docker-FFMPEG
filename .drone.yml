@@ -61,6 +61,6 @@ steps:
       template: |
         {
           "title": "Build for {{ repo.owner }}/{{ repo.name }} complete",
-          "message": "Build for {{ repo.owner }}/{{ repo.name }} complete",
+          "message": "Trigger {{ build.event }} {{ build.action }} for {{ build.sender }} on {{ repo.branch }}\nCommit: {{ build.title }} - {{ build.commit }}\nLink: {{ build.link }}",
           "priority": 5
         }
