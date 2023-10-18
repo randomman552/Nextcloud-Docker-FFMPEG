@@ -9,52 +9,52 @@ trigger:
     exclude: pull_request
 
 steps:
-  # - name: apache-image
-  #   image: plugins/docker
-  #   settings:
-  #     username:
-  #       from_secret: docker-user
-  #     password:
-  #       from_secret: docker-key
-  #     repo: randomman552/nextcloud-ffmpeg
-  #     tags:
-  #       - latest
-  #       - apache
-  #       - stable
-  #       - stable-apache
+  - name: apache-image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker-user
+      password:
+        from_secret: docker-key
+      repo: randomman552/nextcloud-ffmpeg
+      tags:
+        - latest
+        - apache
+        - stable
+        - stable-apache
 
-  # - name: fpm-alpine-image
-  #   image: plugins/docker
-  #   settings:
-  #     username:
-  #       from_secret: docker-user
-  #     password:
-  #       from_secret: docker-key
-  #     repo: randomman552/nextcloud-ffmpeg
-  #     dockerfile: Dockerfile.fpm-alpine
-  #     tags:
-  #       - fpm-alpine
-  #       - stable-fpm-alpine
+  - name: fpm-alpine-image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker-user
+      password:
+        from_secret: docker-key
+      repo: randomman552/nextcloud-ffmpeg
+      dockerfile: Dockerfile.fpm-alpine
+      tags:
+        - fpm-alpine
+        - stable-fpm-alpine
 
-  # - name: fpm-image
-  #   image: plugins/docker
-  #   settings:
-  #     username:
-  #       from_secret: docker-user
-  #     password:
-  #       from_secret: docker-key
-  #     repo: randomman552/nextcloud-ffmpeg
-  #     dockerfile: Dockerfile.fpm
-  #     tags:
-  #       - fpm
-  #       - stable-fpm
+  - name: fpm-image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker-user
+      password:
+        from_secret: docker-key
+      repo: randomman552/nextcloud-ffmpeg
+      dockerfile: Dockerfile.fpm
+      tags:
+        - fpm
+        - stable-fpm
   
   - name: finished-webhook
     image: plugins/webhook
-    # depends_on:
-    #   - apache-image
-    #   - fpm-image
-    #   - fpm-alpine-image
+    depends_on:
+      - apache-image
+      - fpm-image
+      - fpm-alpine-image
     settings:
       urls:
         from_secret: notification-webhook
