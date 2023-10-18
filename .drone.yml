@@ -59,7 +59,7 @@ steps:
       template: |
         {
           "title": "Build for ${DRONE_REPO} complete",
-          "message": "Trigger: ${DRONE_BUILD_TRIGGER}\n\nLast commit: {{ build.message }}\n\n[View build]({{ build.link }})",
+          "message": "Trigger: ${DRONE_BUILD_EVENT}\n\nLast commit: {{ build.message }}\n\n[View build]({{ build.link }})",
           "priority": 5,
           "extras": {
             "client::display": {
