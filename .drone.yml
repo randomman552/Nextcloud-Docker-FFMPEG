@@ -54,7 +54,7 @@ steps:
     #   - fpm-image
     #   - fpm-alpine-image
     commands:
-      - /bin/ash -c "echo Hello World!"
+      - ls
     settings:
       urls:
         from_secret: notification-webhook
