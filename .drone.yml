@@ -3,8 +3,6 @@ type: docker
 name: Publish Docker Images
 
 trigger:
-  branch:
-    - master
   event:
     exclude: pull_request
 
