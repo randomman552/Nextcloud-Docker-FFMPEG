@@ -64,10 +64,8 @@ steps:
           "message": "Trigger: {{ build.event }}\nCommit: [{{ build.message }} by {{ build.author_name }}]({{ build.link }})\n[View build]({{ repo.link }})",
           "priority": 5,
           "extras": {
-            "client": {
-              "display": {
-                "contentType": "text/markdown"
-              }
+            "client::display": {
+              "contentType": "text/markdown"
             }
           }
         }
