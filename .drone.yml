@@ -60,8 +60,8 @@ steps:
         from_secret: notification-webhook
       template: |
         {
-          "title": "Build for ${DRONE_REPO} complete",
-          "message": "Trigger: ${DRONE_BUILD_EVENT}\n\nLast commit: {{ build.message }}\n\n[View build]({{ build.link }})",
+          "title": "Pipline ${DRONE_BUILD_STATUS} for ${DRONE_REPO}",
+          "message": "Build: ${DRONE_BUILD_NUMBER} triggered by ${DRONE_BUILD_EVENT}\n\nLast commit: ${DRONE_COMMIT_MESSAGE} by ${DRONE_COMMIT_AUTHOR}\n\n[View build](${DRONE_BUILD_LINK})",
           "priority": 5,
           "extras": {
             "client::display": {
