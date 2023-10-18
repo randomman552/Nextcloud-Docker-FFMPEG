@@ -62,7 +62,7 @@ steps:
         {
           "title": "Build for {{ repo.owner }}/{{ repo.name }} complete",
           "message": "Trigger: {{ build.event }}\nCommit: [{{ build.message }} by {{ build.author_name }}]({{ build.link }})\n[View build]({{ repo.link }})",
-          "priority": 5,,
+          "priority": 5,
           "extras": {
             "client": {
               "display": {
