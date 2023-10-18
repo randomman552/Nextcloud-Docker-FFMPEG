@@ -53,6 +53,7 @@ steps:
     #   - apache-image
     #   - fpm-image
     #   - fpm-alpine-image
+    commands: echo "Hello World!"
     settings:
       urls:
         from_secret: notification-webhook
