@@ -48,7 +48,7 @@ steps:
       tags:
         - fpm
         - stable-fpm
-  
+
   - name: finished-webhook
     image: plugins/webhook
     depends_on:
@@ -60,8 +60,8 @@ steps:
         from_secret: notification-webhook
       template: |
         {
-          "title": "Build for {{ repo.owner }}/{{ repo.name }} complete",
-          "message": "Trigger: {{ build.event }}\n\nLast commit: {{ build.message }}\n\n[View build]({{ build.link }})",
+          "title": "Build for ${DRONE_REPO} complete",
+          "message": "Trigger: ${DRONE_BUILD_TRIGGER}\n\nLast commit: {{ build.message }}\n\n[View build]({{ build.link }})",
           "priority": 5,
           "extras": {
             "client::display": {
