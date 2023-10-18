@@ -59,7 +59,7 @@ steps:
       template: |
         {
           "title": "${DRONE_BUILD_STATUS^} for ${DRONE_REPO}",
-          "message": "Build `${DRONE_BUILD_NUMBER}` triggered by `${DRONE_BUILD_EVENT}` on `${DRONE_BRANCH}` branch\n\nCommit: [`${DRONE_COMMIT_MESSAGE}`](${DRONE_COMMIT_LINK}) by ${DRONE_COMMIT_AUTHOR}\n\n[View build](${DRONE_BUILD_LINK})\n\n[View source](${DRONE_REPO_LINK})",
+          "message": "Build `${DRONE_BUILD_NUMBER}` triggered by `${DRONE_BUILD_EVENT}` on `${DRONE_BRANCH}` branch for Commit: [`${DRONE_COMMIT_MESSAGE}`](${DRONE_COMMIT_LINK}) by ${DRONE_COMMIT_AUTHOR}\n\n[View build](${DRONE_BUILD_LINK})\n\n[View source](${DRONE_REPO_LINK})",
           "priority": 5,
           "extras": {
             "client::display": {
