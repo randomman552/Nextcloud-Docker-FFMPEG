@@ -53,8 +53,6 @@ steps:
     #   - apache-image
     #   - fpm-image
     #   - fpm-alpine-image
-    commands:
-      - ls
     settings:
       urls:
         from_secret: notification-webhook
