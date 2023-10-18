@@ -49,10 +49,10 @@ steps:
 
   - name: finished-webhook
     image: plugins/webhook
-    depends_on:
-      - apache-image
-      - fpm-image
-      - fpm-alpine-image
+    # depends_on:
+    #   - apache-image
+    #   - fpm-image
+    #   - fpm-alpine-image
     settings:
       urls:
         from_secret: notification-webhook
