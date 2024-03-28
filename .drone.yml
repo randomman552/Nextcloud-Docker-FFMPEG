@@ -58,11 +58,20 @@ steps:
               - stable-fpm
 
     # Reporting
-    - kind: template
-      name: build-reporter
-      load: report-build.yaml
-      data:
-          depends_on:
-              - apache-image
-              - fpm-alpine-image
-              - fpm-image
+    - name: build-reporter
+      image: randomman552/drone-build-reporter
+      depends_on:
+          - apache-image
+          - fpm-alpine-image
+          - fpm-image
+      settings:
+          gotify_token:
+              from_secret: gotify-token
+          gotify_url:
+              from_secret: gotify-url
+          discord_webhook:
+              from_secret: discord-webhook
+      when:
+          status:
+              - failure
+              - success
