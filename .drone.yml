@@ -59,6 +59,7 @@ steps:
 
     # Reporting
     - kind: template
+      name: build-reporter
       load: report-build.yaml
       data:
           depends_on:
